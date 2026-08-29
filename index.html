@@ -62,6 +62,7 @@
             background-image:
                 linear-gradient(rgba(70, 16, 16, 0.42), rgba(70, 16, 16, 0.42)),
                 url("image1");
+            background-repeat: no-repeat;
         }
 
         #hoverPromptText {
@@ -134,9 +135,12 @@ let size = 20;
 let noHoverCount = 0;
 
 function showHoverPrompt(message, promptClass, showFace) {
+    hoverPrompt.classList.remove("show", "prompt-angry", "prompt-rum");
     hoverPromptText.textContent = message;
-    hoverPrompt.className = promptClass ? promptClass : "";
     hoverPromptFace.style.display = showFace ? "block" : "none";
+    if (promptClass) {
+        hoverPrompt.classList.add(promptClass);
+    }
     hoverPrompt.offsetWidth;
     hoverPrompt.classList.add("show");
 }

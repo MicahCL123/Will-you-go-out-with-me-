@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffcc80"/>
+      <stop offset="100%" stop-color="#ff8a65"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7b1fa2"/>
+      <stop offset="100%" stop-color="#311b92"/>
+    </linearGradient>
+    <linearGradient id="drink" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffcf66"/>
+      <stop offset="100%" stop-color="#9c4a1a"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="480" fill="url(#sky)"/>
+  <rect y="300" width="800" height="180" fill="url(#sea)"/>
+  <circle cx="630" cy="110" r="52" fill="#fff3b0" opacity="0.9"/>
+  <path d="M170 390h460l-35 55H205z" fill="#f1d6a6"/>
+  <path d="M295 115h175l-20 175c-3 22-22 38-44 38h-47c-22 0-41-16-44-38z" fill="rgba(255,255,255,0.35)" stroke="#ffffff" stroke-width="10"/>
+  <path d="M308 145h149l-13 125c-2 18-16 30-34 30h-55c-18 0-32-12-34-30z" fill="url(#drink)"/>
+  <rect x="350" y="55" width="14" height="95" rx="7" fill="#ffffff"/>
+  <rect x="392" y="55" width="14" height="95" rx="7" fill="#ffffff"/>
+  <path d="M325 140c22 16 43 16 65 0s43-16 65 0" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="334" cy="88" r="12" fill="#ef5350"/>
+  <circle cx="430" cy="102" r="10" fill="#66bb6a"/>
+  <circle cx="462" cy="82" r="8" fill="#ffee58"/>
+  <text x="400" y="440" text-anchor="middle" font-family="Arial, sans-serif" font-size="40" fill="#fff8e1">rum break vibes</text>
+</svg>
