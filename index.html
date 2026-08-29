@@ -163,6 +163,7 @@ noBtn.addEventListener("mouseover", () => {
         showHoverPrompt("¿Estás de payaso hoy o qué?", "prompt-angry", true);
     } else if (noHoverCount === 9) {
         showHoverPrompt("lemme go drink some rum", "prompt-rum", false);
+        noHoverCount = 0;
     }
 });
 
