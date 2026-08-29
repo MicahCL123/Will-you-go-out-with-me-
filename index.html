@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Important Question ❤️</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffe6e6;
+            margin-top: 150px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        #yesBtn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+
+        #noBtn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            position: relative;
+        }
+
+        #datePage {
+            display: none;
+        }
+
+        #datePage input {
+            font-size: 18px;
+            padding: 10px;
+            margin: 10px;
+            border: 2px solid #ff4d4d;
+            border-radius: 8px;
+        }
+
+        #datePage label {
+            font-size: 20px;
+            display: block;
+            margin-top: 15px;
+        }
+
+        #submitDate {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="mainPage">
+    <h1>Will you go out with me? ❤️</h1>
+    <button id="yesBtn">Yes ❤️</button>
+    <button id="noBtn">No 😢</button>
+</div>
+
+<div id="datePage">
+    <h1>Yay! 🎉❤️</h1>
+    <h2>When would you like to go out?</h2>
+    <label for="dateInput">Choose a date:</label>
+    <input type="date" id="dateInput" />
+    <label for="timeInput">Choose a time:</label>
+    <input type="time" id="timeInput" />
+    <br />
+    <button id="submitDate">Let's do it! 💕</button>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const mainPage = document.getElementById("mainPage");
+const datePage = document.getElementById("datePage");
+const submitDate = document.getElementById("submitDate");
+
+let size = 20;
+
+noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * (window.innerWidth - 150);
+    const y = Math.random() * (window.innerHeight - 100);
+
+    noBtn.style.position = "absolute";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+
+    size += 5;
+    yesBtn.style.fontSize = size + "px";
+});
+
+yesBtn.addEventListener("click", () => {
+    mainPage.style.display = "none";
+    datePage.style.display = "block";
+});
+
+submitDate.addEventListener("click", () => {
+    const date = document.getElementById("dateInput").value;
+    const time = document.getElementById("timeInput").value;
+
+    if (!date || !time) {
+        alert("Please choose both a date and a time! ❤️");
+        return;
+    }
+
+    const dateObj = new Date(date + "T" + time);
+    const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+    const formattedDate = dateObj.toLocaleDateString(undefined, options);
+    const formattedTime = dateObj.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+
+    document.body.innerHTML =
+        "<h1>Can't wait! 🎉❤️</h1>" +
+        "<h2>It's a date on " + formattedDate + " at " + formattedTime + "!</h2>";
+});
+</script>
+
+</body>
+</html>
