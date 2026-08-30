@@ -96,11 +96,6 @@
             border: none;
             margin-top: 20px;
         }
-
-        #submitDate:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-        }
     </style>
 </head>
 <body>
@@ -125,7 +120,6 @@
     <button id="submitDate">Let's do it! 💕</button>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js"></script>
 <script>
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
@@ -140,11 +134,6 @@ let size = 20;
 let noHoverCount = 0;
 let rumMode = false;
 let resetCount = 0;
-
-// Initialize EmailJS
-emailjs.init({
-    publicKey: "8KRs1u3JrKxsT2Dor"
-});
 
 function showHoverPrompt(message, promptClass, showFace, faceEmoji) {
     hoverPrompt.classList.remove("show", "prompt-angry", "prompt-rum");
@@ -229,30 +218,9 @@ submitDate.addEventListener("click", () => {
     const formattedDate = dateObj.toLocaleDateString(undefined, options);
     const formattedTime = dateObj.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
 
-    // Disable button to prevent duplicate submissions
-    submitDate.disabled = true;
-    submitDate.textContent = "Sending... 📧";
-
-    // Send email using EmailJS
-    emailjs.send("service_c4ixs7f", "template_dateconfirm", {
-        to_email: "micahbi@yahoo.com",
-        date: formattedDate,
-        time: formattedTime,
-        message: "She said yes! Here's when they're meeting up!"
-    }).then(() => {
-        // Show confirmation message
-        document.body.innerHTML =
-            "<h1>Can't wait! 🎉❤️</h1>" +
-            "<h2>It's a date on " + formattedDate + " at " + formattedTime + "!</h2>" +
-            "<p style='font-size: 18px; margin-top: 20px;'>Confirmation email sent! 📧</p>";
-    }).catch((error) => {
-        console.error("Email sending failed:", error);
-        // Still show confirmation even if email fails, but alert the user
-        alert("Date saved! (Email sending had an issue, but your date is confirmed)");
-        document.body.innerHTML =
-            "<h1>Can't wait! 🎉❤️</h1>" +
-            "<h2>It's a date on " + formattedDate + " at " + formattedTime + "!</h2>";
-    });
+    document.body.innerHTML =
+        "<h1>Can't wait! 🎉❤️</h1>" +
+        "<h2>It's a date on " + formattedDate + " at " + formattedTime + "!</h2>";
 });
 </script>
 
