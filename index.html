@@ -70,10 +70,9 @@
         }
 
         #hoverPromptFace {
-            display: none;
+            display: inline;
             font-size: 32px;
             margin-left: 8px;
-            display: inline;
         }
 
         #datePage input {
@@ -132,8 +131,6 @@ const hoverPromptFace = document.getElementById("hoverPromptFace");
 
 let size = 20;
 let noHoverCount = 0;
-let rumMode = false;
-let resetCount = 0;
 
 function showHoverPrompt(message, promptClass, showFace, faceEmoji) {
     hoverPrompt.classList.remove("show", "prompt-angry", "prompt-rum");
@@ -162,21 +159,11 @@ function setRumBackground() {
     document.body.style.backgroundRepeat = "no-repeat";
 }
 
+setNormalBackground();
+
 noBtn.addEventListener("mouseover", () => {
-    if (rumMode) {
-        resetCount += 1;
-
-        if (resetCount > 0) {
-            setNormalBackground();
-            rumMode = false;
-            noHoverCount = 0;
-            resetCount = 0;
-            showHoverPrompt("Aight, we back 😌", "", false, "");
-            return;
-        }
-    }
-
     noHoverCount += 1;
+
     const x = Math.random() * (window.innerWidth - 150);
     const y = Math.random() * (window.innerHeight - 100);
 
@@ -193,9 +180,6 @@ noBtn.addEventListener("mouseover", () => {
         showHoverPrompt("¿Estás de payaso hoy o qué?", "prompt-angry", true, "😠");
     } else if (noHoverCount === 9) {
         setRumBackground();
-        rumMode = true;
-        resetCount = 0;
-        noHoverCount = 0;
         showHoverPrompt("lemme go drink some rum yes😒", "prompt-rum", false, "");
     }
 });
