@@ -134,6 +134,7 @@ const hoverPromptFace = document.getElementById("hoverPromptFace");
 let size = 20;
 let noHoverCount = 0;
 let rumMode = false;
+let resetCount = 0;
 
 function showHoverPrompt(message, promptClass, showFace) {
     hoverPrompt.classList.remove("show", "prompt-angry", "prompt-rum");
@@ -164,11 +165,16 @@ function setRumBackground() {
 
 noBtn.addEventListener("mouseover", () => {
     if (rumMode) {
-        setNormalBackground();
-        rumMode = false;
-        noHoverCount = 0;
-        showHoverPrompt("Aight, we back 😌", "", false);
-        return;
+        resetCount += 1;
+        
+        if (resetCount === 1) {
+            setNormalBackground();
+            rumMode = false;
+            noHoverCount = 0;
+            resetCount = 0;
+            showHoverPrompt("Aight, we back 😌", "", false);
+            return;
+        }
     }
 
     noHoverCount += 1;
@@ -189,6 +195,7 @@ noBtn.addEventListener("mouseover", () => {
     } else if (noHoverCount === 9) {
         setRumBackground();
         rumMode = true;
+        resetCount = 0;
         showHoverPrompt("lemme go drink some rum", "prompt-rum", false);
     }
 });
