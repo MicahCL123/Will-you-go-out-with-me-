@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Important Question ❤️</title>
+    <title>Important Question 🤔</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -101,7 +101,7 @@
 <body>
 
 <div id="mainPage">
-    <h1>Will you go out with me? ❤️</h1>
+    <h1>Will you go out with me? 🤔</h1>
     <button id="yesBtn">Yes ❤️</button>
     <button id="noBtn">No 😢</button>
     <div id="hoverPrompt" aria-live="polite">
@@ -167,7 +167,7 @@ noBtn.addEventListener("mouseover", () => {
     if (rumMode) {
         resetCount += 1;
         
-        if (resetCount === 1) {
+        if (resetCount > 0) {
             setNormalBackground();
             rumMode = false;
             noHoverCount = 0;
