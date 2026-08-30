@@ -147,8 +147,8 @@ function showHoverPrompt(message, promptClass, showFace, faceEmoji) {
 }
 
 function setNormalBackground() {
-    document.body.style.backgroundImage = "none";
     document.body.style.backgroundColor = "#ffe6e6";
+    document.body.style.backgroundImage = "none";
     document.body.style.backgroundSize = "";
     document.body.style.backgroundPosition = "";
     document.body.style.backgroundRepeat = "";
@@ -156,16 +156,16 @@ function setNormalBackground() {
 
 function setRumBackground() {
     document.body.style.backgroundColor = "#1a1a1a";
-    document.body.style.backgroundImage = "none";
-    document.body.style.backgroundSize = "";
-    document.body.style.backgroundPosition = "";
-    document.body.style.backgroundRepeat = "";
+    document.body.style.backgroundImage = "url('counch.png')";
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundRepeat = "no-repeat";
 }
 
 noBtn.addEventListener("mouseover", () => {
     if (rumMode) {
         resetCount += 1;
-        
+
         if (resetCount > 0) {
             setNormalBackground();
             rumMode = false;
@@ -195,7 +195,13 @@ noBtn.addEventListener("mouseover", () => {
         setRumBackground();
         rumMode = true;
         resetCount = 0;
+        noHoverCount = 0;
         showHoverPrompt("lemme go drink some rum yes😒", "prompt-rum", false, "");
+
+        setTimeout(() => {
+            setNormalBackground();
+            rumMode = false;
+        }, 1500);
     }
 });
 
