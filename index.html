@@ -34,6 +34,48 @@
             display: none;
         }
 
+        #hoverPrompt {
+            max-width: 420px;
+            margin: 25px auto 0;
+            padding: 18px 22px;
+            color: white;
+            border-radius: 18px;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.18);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 2s ease, visibility 2s ease;
+            background: linear-gradient(135deg, rgba(255, 77, 109, 0.95), rgba(255, 140, 148, 0.95));
+            background-size: cover;
+            background-position: center;
+        }
+
+        #hoverPrompt.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #hoverPrompt.prompt-angry {
+            background: linear-gradient(135deg, rgba(255, 132, 0, 0.95), rgba(255, 77, 77, 0.95));
+        }
+
+        #hoverPrompt.prompt-rum {
+            background-image:
+                linear-gradient(rgba(70, 16, 16, 0.42), rgba(70, 16, 16, 0.42)),
+                url("image1.svg");
+            background-repeat: no-repeat;
+        }
+
+        #hoverPromptText {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        #hoverPromptFace {
+            display: none;
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
         #datePage input {
             font-size: 18px;
             padding: 10px;
@@ -62,6 +104,10 @@
     <h1>Will you go out with me? ❤️</h1>
     <button id="yesBtn">Yes ❤️</button>
     <button id="noBtn">No 😢</button>
+    <div id="hoverPrompt" aria-live="polite">
+        <div id="hoverPromptFace">😠</div>
+        <p id="hoverPromptText"></p>
+    </div>
 </div>
 
 <div id="datePage">
@@ -81,10 +127,26 @@ const yesBtn = document.getElementById("yesBtn");
 const mainPage = document.getElementById("mainPage");
 const datePage = document.getElementById("datePage");
 const submitDate = document.getElementById("submitDate");
+const hoverPrompt = document.getElementById("hoverPrompt");
+const hoverPromptText = document.getElementById("hoverPromptText");
+const hoverPromptFace = document.getElementById("hoverPromptFace");
 
 let size = 20;
+let noHoverCount = 0;
+
+function showHoverPrompt(message, promptClass, showFace) {
+    hoverPrompt.classList.remove("show", "prompt-angry", "prompt-rum");
+    hoverPromptText.textContent = message;
+    hoverPromptFace.style.display = showFace ? "block" : "none";
+    if (promptClass) {
+        hoverPrompt.classList.add(promptClass);
+    }
+    void hoverPrompt.offsetWidth;
+    hoverPrompt.classList.add("show");
+}
 
 noBtn.addEventListener("mouseover", () => {
+    noHoverCount += 1;
     const x = Math.random() * (window.innerWidth - 150);
     const y = Math.random() * (window.innerHeight - 100);
 
@@ -94,6 +156,15 @@ noBtn.addEventListener("mouseover", () => {
 
     size += 5;
     yesBtn.style.fontSize = size + "px";
+
+    if (noHoverCount === 3) {
+        showHoverPrompt("Oi wa you doing, look the yes dey!?!", "", false);
+    } else if (noHoverCount === 6) {
+        showHoverPrompt("¿Estás de payaso hoy o qué?", "prompt-angry", true);
+    } else if (noHoverCount === 9) {
+        showHoverPrompt("lemme go drink some rum", "prompt-rum", false);
+        noHoverCount = 0;
+    }
 });
 
 yesBtn.addEventListener("click", () => {
