@@ -133,9 +133,10 @@ const hoverPromptFace = document.getElementById("hoverPromptFace");
 const dateInput = document.getElementById("dateInput");
 const timeInput = document.getElementById("timeInput");
 
-const EMAILJS_PUBLIC_KEY = "YOUR_EMAILJS_PUBLIC_KEY";
-const EMAILJS_SERVICE_ID = "YOUR_EMAILJS_SERVICE_ID";
-const EMAILJS_TEMPLATE_ID = "YOUR_EMAILJS_TEMPLATE_ID";
+const emailJsConfig = window.EMAILJS_CONFIG || {};
+const EMAILJS_PUBLIC_KEY = emailJsConfig.publicKey || "YOUR_EMAILJS_PUBLIC_KEY";
+const EMAILJS_SERVICE_ID = emailJsConfig.serviceId || "YOUR_EMAILJS_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = emailJsConfig.templateId || "YOUR_EMAILJS_TEMPLATE_ID";
 
 let size = 20;
 let noHoverCount = 0;
@@ -239,11 +240,22 @@ function sendSummaryEmail(formattedDate, formattedTime) {
         confirmation_message: "Date confirmed successfully! ❤️"
     };
 
+    const withTimeout = (promise, timeoutMs) =>
+        new Promise((resolve, reject) => {
+            const timeoutId = setTimeout(() => reject(new Error("Email timeout")), timeoutMs);
+            promise
+                .then((result) => {
+                    clearTimeout(timeoutId);
+                    resolve(result);
+                })
+                .catch((error) => {
+                    clearTimeout(timeoutId);
+                    reject(error);
+                });
+        });
+
     const sendAttempt = () =>
-        Promise.race([
-            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams),
-            new Promise((_, reject) => setTimeout(() => reject(new Error("Email timeout")), 8000))
-        ]);
+        withTimeout(emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams), 8000);
 
     return sendAttempt()
         .then(() => true)
@@ -267,7 +279,11 @@ submitDate.addEventListener("click", async () => {
     submitDate.disabled = true;
     submitDate.textContent = "Sending... 💌";
 
-    await sendSummaryEmail(formattedDate, formattedTime);
+    const emailSent = await sendSummaryEmail(formattedDate, formattedTime);
+    if (!emailSent) {
+        alert("Your date is saved, but the confirmation email could not be sent right now.");
+    }
+
     showConfirmation(formattedDate, formattedTime);
 });
 </script>
