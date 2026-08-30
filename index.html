@@ -136,22 +136,12 @@ const timeInput = document.getElementById("timeInput");
 const EMAILJS_PUBLIC_KEY = "YOUR_EMAILJS_PUBLIC_KEY";
 const EMAILJS_SERVICE_ID = "YOUR_EMAILJS_SERVICE_ID";
 const EMAILJS_TEMPLATE_ID = "YOUR_EMAILJS_TEMPLATE_ID";
-const EMAILJS_TO_EMAIL = "micahbi@yahoo.com";
 
 let size = 20;
 let noHoverCount = 0;
 let rumMode = false;
 let resetCount = 0;
-
-const emailJsReady =
-    window.emailjs &&
-    EMAILJS_PUBLIC_KEY !== "YOUR_EMAILJS_PUBLIC_KEY" &&
-    EMAILJS_SERVICE_ID !== "YOUR_EMAILJS_SERVICE_ID" &&
-    EMAILJS_TEMPLATE_ID !== "YOUR_EMAILJS_TEMPLATE_ID";
-
-if (emailJsReady) {
-    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-}
+let emailJsInitialized = false;
 
 function showHoverPrompt(message, promptClass, showFace, faceEmoji) {
     hoverPrompt.classList.remove("show", "prompt-angry", "prompt-rum");
@@ -229,12 +219,21 @@ function showConfirmation(formattedDate, formattedTime) {
 }
 
 function sendSummaryEmail(formattedDate, formattedTime) {
-    if (!emailJsReady) {
+    const isConfigured =
+        EMAILJS_PUBLIC_KEY !== "YOUR_EMAILJS_PUBLIC_KEY" &&
+        EMAILJS_SERVICE_ID !== "YOUR_EMAILJS_SERVICE_ID" &&
+        EMAILJS_TEMPLATE_ID !== "YOUR_EMAILJS_TEMPLATE_ID";
+
+    if (!window.emailjs || !isConfigured) {
         return Promise.resolve(false);
     }
 
+    if (!emailJsInitialized) {
+        emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+        emailJsInitialized = true;
+    }
+
     const templateParams = {
-        to_email: EMAILJS_TO_EMAIL,
         formatted_date: formattedDate,
         formatted_time: formattedTime,
         confirmation_message: "Date confirmed successfully! ❤️"
