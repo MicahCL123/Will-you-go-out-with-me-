@@ -19,3 +19,4 @@ This app now sends the selected date/time summary email through EmailJS when the
 5. Configure the template recipient in your EmailJS dashboard.
 6. In EmailJS, restrict allowed origins to your site/domain to prevent quota abuse.
 7. Do not commit real EmailJS keys/IDs to the repository.
+8. Note: EmailJS runs in the browser, so public keys and IDs are visible client-side; always use origin restrictions and EmailJS-side controls.

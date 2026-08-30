@@ -279,12 +279,20 @@ submitDate.addEventListener("click", async () => {
     submitDate.disabled = true;
     submitDate.textContent = "Sending... 💌";
 
-    const emailSent = await sendSummaryEmail(formattedDate, formattedTime);
-    if (!emailSent) {
-        alert("Your date is saved, but the confirmation email could not be sent right now.");
-    }
+    try {
+        const emailSent = await sendSummaryEmail(formattedDate, formattedTime);
+        if (!emailSent) {
+            alert("Your date is saved, but the confirmation email could not be sent right now.");
+        }
 
-    showConfirmation(formattedDate, formattedTime);
+        showConfirmation(formattedDate, formattedTime);
+    } catch (error) {
+        if (document.body.contains(submitDate)) {
+            submitDate.disabled = false;
+            submitDate.textContent = "Let's do it! 💕";
+        }
+        alert("Something went wrong. Please try submitting your date again.");
+    }
 });
 </script>
 
