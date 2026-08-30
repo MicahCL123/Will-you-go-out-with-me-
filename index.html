@@ -59,18 +59,21 @@
         }
 
         #hoverPrompt.prompt-rum {
-            background: linear-gradient(135deg, rgba(70, 16, 16, 0.42), rgba(70, 16, 16, 0.42));
+            background: linear-gradient(135deg, rgba(70, 16, 16, 0.95), rgba(70, 16, 16, 0.95));
+            color: white;
         }
 
         #hoverPromptText {
             margin: 0;
             font-size: 24px;
+            color: white;
         }
 
         #hoverPromptFace {
             display: none;
             font-size: 32px;
-            margin-bottom: 8px;
+            margin-left: 8px;
+            display: inline;
         }
 
         #datePage input {
@@ -102,8 +105,7 @@
     <button id="yesBtn">Yes ❤️</button>
     <button id="noBtn">No 😢</button>
     <div id="hoverPrompt" aria-live="polite">
-        <div id="hoverPromptFace">😠</div>
-        <p id="hoverPromptText"></p>
+        <p id="hoverPromptText"><span id="hoverPromptFace"></span></p>
     </div>
 </div>
 
@@ -133,10 +135,10 @@ let noHoverCount = 0;
 let rumMode = false;
 let resetCount = 0;
 
-function showHoverPrompt(message, promptClass, showFace) {
+function showHoverPrompt(message, promptClass, showFace, faceEmoji) {
     hoverPrompt.classList.remove("show", "prompt-angry", "prompt-rum");
     hoverPromptText.textContent = message;
-    hoverPromptFace.style.display = showFace ? "block" : "none";
+    hoverPromptFace.textContent = showFace ? faceEmoji : "";
     if (promptClass) {
         hoverPrompt.classList.add(promptClass);
     }
@@ -169,7 +171,7 @@ noBtn.addEventListener("mouseover", () => {
             rumMode = false;
             noHoverCount = 0;
             resetCount = 0;
-            showHoverPrompt("Aight, we back 😌", "", false);
+            showHoverPrompt("Aight, we back 😌", "", false, "");
             return;
         }
     }
@@ -186,14 +188,14 @@ noBtn.addEventListener("mouseover", () => {
     yesBtn.style.fontSize = size + "px";
 
     if (noHoverCount === 3) {
-        showHoverPrompt("Oi wa you doing, look the yes dey!?!", "", false);
+        showHoverPrompt("Oi wa you doing, look the yes dey!?!", "", false, "");
     } else if (noHoverCount === 6) {
-        showHoverPrompt("¿Estás de payaso hoy o qué?", "prompt-angry", true);
+        showHoverPrompt("¿Estás de payaso hoy o qué?", "prompt-angry", true, "😠");
     } else if (noHoverCount === 9) {
         setRumBackground();
         rumMode = true;
         resetCount = 0;
-        showHoverPrompt("lemme go drink some rum", "prompt-rum", false);
+        showHoverPrompt("lemme go drink some rum", "prompt-rum", true, "😒");
     }
 });
 
