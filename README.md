@@ -16,4 +16,5 @@ This app now sends the selected date/time summary email through EmailJS when the
    - `{{formatted_date}}`
    - `{{formatted_time}}`
    - `{{confirmation_message}}`
-5. Configure the template recipient as `micahbi@yahoo.com` in your EmailJS dashboard.
+5. Configure the template recipient in your EmailJS dashboard.
+6. In EmailJS, restrict allowed origins to your site/domain to prevent quota abuse.
