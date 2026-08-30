@@ -59,10 +59,7 @@
         }
 
         #hoverPrompt.prompt-rum {
-            background-image:
-                linear-gradient(rgba(70, 16, 16, 0.42), rgba(70, 16, 16, 0.42)),
-                url("couch.png");
-            background-repeat: no-repeat;
+            background: linear-gradient(135deg, rgba(70, 16, 16, 0.42), rgba(70, 16, 16, 0.42));
         }
 
         #hoverPromptText {
@@ -157,10 +154,10 @@ function setNormalBackground() {
 
 function setRumBackground() {
     document.body.style.backgroundColor = "#1a1a1a";
-    document.body.style.backgroundImage = 'linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url("couch.png")';
-    document.body.style.backgroundSize = "cover";
-    document.body.style.backgroundPosition = "center";
-    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundImage = "none";
+    document.body.style.backgroundSize = "";
+    document.body.style.backgroundPosition = "";
+    document.body.style.backgroundRepeat = "";
 }
 
 noBtn.addEventListener("mouseover", () => {
