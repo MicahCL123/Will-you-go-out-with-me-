@@ -133,6 +133,7 @@ const hoverPromptFace = document.getElementById("hoverPromptFace");
 
 let size = 20;
 let noHoverCount = 0;
+let rumMode = false;
 
 function showHoverPrompt(message, promptClass, showFace) {
     hoverPrompt.classList.remove("show", "prompt-angry", "prompt-rum");
@@ -145,7 +146,31 @@ function showHoverPrompt(message, promptClass, showFace) {
     hoverPrompt.classList.add("show");
 }
 
+function setNormalBackground() {
+    document.body.style.backgroundImage = "none";
+    document.body.style.backgroundColor = "#ffe6e6";
+    document.body.style.backgroundSize = "";
+    document.body.style.backgroundPosition = "";
+    document.body.style.backgroundRepeat = "";
+}
+
+function setRumBackground() {
+    document.body.style.backgroundColor = "#ffe6e6";
+    document.body.style.backgroundImage = 'url("image1.svg")';
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundRepeat = "no-repeat";
+}
+
 noBtn.addEventListener("mouseover", () => {
+    if (rumMode) {
+        setNormalBackground();
+        rumMode = false;
+        noHoverCount = 0;
+        showHoverPrompt("Aight, we back 😌", "", false);
+        return;
+    }
+
     noHoverCount += 1;
     const x = Math.random() * (window.innerWidth - 150);
     const y = Math.random() * (window.innerHeight - 100);
@@ -162,8 +187,9 @@ noBtn.addEventListener("mouseover", () => {
     } else if (noHoverCount === 6) {
         showHoverPrompt("¿Estás de payaso hoy o qué?", "prompt-angry", true);
     } else if (noHoverCount === 9) {
+        setRumBackground();
+        rumMode = true;
         showHoverPrompt("lemme go drink some rum", "prompt-rum", false);
-        noHoverCount = 0;
     }
 });
 
